@@ -1,0 +1,26 @@
+{
+    "name": "verdient/bitmap",
+    "description": "Bitmap for PHP",
+    "type": "library",
+    "keywords": ["bitmap", "bit"],
+    "homepage": "https://github.com/Verdient/bitmap",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Verdient.",
+            "email": "fagui.zhu@foxmail.com",
+            "homepage": "https://github.com/Verdient"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/Verdient/bitmap/issues",
+        "source": "https://github.com/Verdient/bitmap"
+    },
+    "require": {
+        "php": ">=7.0",
+        "verdient/chorus": "^0.0.6"
+    },
+    "autoload": {
+        "psr-4": {"Verdient\\BitMap\\": "src"}
+    }
+}
