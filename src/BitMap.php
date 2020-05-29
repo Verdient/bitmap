@@ -20,14 +20,6 @@ class BitMap extends \chorus\BaseObject
 	protected $_data = '';
 
 	/**
-	 * 初始化
-	 * @author Verdient。
-	 */
-	public function init(){
-		$this->_data = str_repeat(chr(0), ceil($this->size / 8));
-	}
-
-	/**
 	 * 设置位
 	 * @param int $offset 偏移量
 	 * @param int $value 值
@@ -35,11 +27,15 @@ class BitMap extends \chorus\BaseObject
 	 * @author Verdient。
 	 */
 	public function set($offset, $value = 1){
-		if($this->size < ($offset + 1)){
+		if($this->size && $offset >= $this->size){
 			return false;
 		}
 		$o = $offset % 8;
 		$i = intval(($offset - $o) / 8);
+		$n = strlen($this->_data);
+		if($n <= $i){
+			$this->_data .= str_repeat(chr(0), $i - $n + 1);
+		}
 		if($value){
 			$this->_data[$i] = chr(ord($this->_data[$i]) | (1 << 7 - $o));
 		}else{
@@ -54,11 +50,14 @@ class BitMap extends \chorus\BaseObject
 	 * @author Verdient。
 	 */
 	public function get($offset){
-		if($this->size < ($offset + 1)){
+		if($this->size && $offset >= $this->size){
 			return false;
 		}
 		$o = $offset % 8;
 		$i = intval(($offset - $o) / 8);
+		if(!isset($this->_data[$i])){
+			return 0;
+		}
 		if((ord($this->_data[$i]) >> 7 - $o & 1) ^ 1){
 			return 0;
 		}
